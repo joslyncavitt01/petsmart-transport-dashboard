@@ -62,21 +62,28 @@ rows:
 
   # ── Secondary KPIs ──────────────────────────────────────────────────────────
   - items:
-      - width: 4
+      - width: 3
         kpi_grid:
           metrics_view: transport_in
           measures:
             - source_shelter_count
           sparkline: none
           hide_time_range: true
-      - width: 4
+      - width: 3
         kpi_grid:
           metrics_view: transport_out
           measures:
-            - partners_active
+            - total_partners
           sparkline: none
           hide_time_range: true
-      - width: 4
+      - width: 3
+        kpi_grid:
+          metrics_view: transport_out
+          measures:
+            - petsmart_partners_active
+          sparkline: none
+          hide_time_range: true
+      - width: 3
         kpi_grid:
           metrics_view: transport_out
           measures:
@@ -85,17 +92,19 @@ rows:
           hide_time_range: true
     height: 140px
 
-  # ── Additional reach note ────────────────────────────────────────────────────
+  # ── Approved partners note ───────────────────────────────────────────────────
   - items:
       - width: 12
         markdown:
           content: >
-            > **Additional program reach:** Beyond the 22 approved partners above,
-            APA!'s transport program also moved animals to additional rescue
-            organizations during the grant period, reaching **15 states total**
-            (CO, ID, IL, IN, MN, MO, NE, NY, PA, TX, UT, VA, WA, WI, WY). All
-            transports meet the grant purpose of moving pets to communities where
-            adoption demand exceeds supply.
+            > All metrics above reflect APA!'s full National Transport Program
+            during the grant period. Of the **22 approved destination partners**
+            in the grant application, **19 received animals**. The partner
+            breakdown below is scoped to those approved organizations.
+          alignment:
+            horizontal: left
+            vertical: middle
+    height: 48px
           alignment:
             horizontal: left
             vertical: middle
@@ -163,7 +172,8 @@ rows:
       - width: 6
         leaderboard:
           metrics_view: transport_out
-          title: Animals Received by Partner
+          title: Animals Received by Approved Partner
+          dimension_filters: is_petsmart_partner = TRUE
           dimensions:
             - destination_partner
           measures:
@@ -173,6 +183,7 @@ rows:
         bar_chart:
           metrics_view: transport_out
           title: By State
+          dimension_filters: is_petsmart_partner = TRUE
           color: "#D85928"
           x:
             field: destination_state
@@ -186,6 +197,7 @@ rows:
         donut_chart:
           metrics_view: transport_out
           title: Species Mix
+          dimension_filters: is_petsmart_partner = TRUE
           innerRadius: 50
           color:
             field: species

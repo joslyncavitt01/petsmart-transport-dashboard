@@ -1,6 +1,6 @@
 type: metrics_view
-display_name: "Transport Out (PetSmart Partners)"
-model: petsmart_transports
+display_name: "Transport Out"
+model: transport_out
 timeseries: transport_date
 smallest_time_grain: month
 
@@ -17,6 +17,8 @@ dimensions:
     display_name: Destination State
   - column: day_of_week
     display_name: Day of Week
+  - column: is_petsmart_partner
+    display_name: PetSmart-Approved Partner
 
 measures:
   - name: total_transported
@@ -39,9 +41,9 @@ measures:
     expression: ROUND(COUNT(*) / 1000.0, 3)
     format_preset: percentage
 
-  - name: partners_active
-    display_name: "Partners Active"
-    expression: COUNT(DISTINCT destination_partner)
+  - name: petsmart_partners_active
+    display_name: "Approved Partners Active"
+    expression: COUNT(DISTINCT CASE WHEN is_petsmart_partner THEN destination_partner END)
     format_preset: humanize
 
   - name: states_reached
@@ -49,8 +51,13 @@ measures:
     expression: COUNT(DISTINCT destination_state)
     format_preset: humanize
 
+  - name: total_partners
+    display_name: "Total Partners"
+    expression: COUNT(DISTINCT destination_partner)
+    format_preset: humanize
+
 explore:
-  display_name: "Transport Out — PetSmart Partners"
+  display_name: "Transport Out"
   time_ranges:
     - P3M
     - P6M
