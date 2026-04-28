@@ -21,7 +21,7 @@ sql: |
       WHEN 'Black Dog Animal Rescue'                THEN TRUE
       WHEN 'Boise Bully Breed Rescue'               THEN TRUE
       WHEN 'Bounce Animal Rescue'                   THEN TRUE
-      WHEN 'Buddy''s Second Chance Rescue'          THEN TRUE
+      WHEN 'Buddy\'s Second Chance Rescue'            THEN TRUE
       WHEN 'Community Animal Rescue Effort'         THEN TRUE
       WHEN 'Community Animal Welfare Society (CAWS)' THEN TRUE
       WHEN 'Fetch Wisconsin Rescue'                 THEN TRUE
