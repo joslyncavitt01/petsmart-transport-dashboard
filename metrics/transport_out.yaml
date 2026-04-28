@@ -47,8 +47,8 @@ measures:
     format_preset: humanize
 
   - name: states_reached
-    display_name: "States Reached"
-    expression: COUNT(DISTINCT destination_state)
+    display_name: "States (Approved Partners)"
+    expression: COUNT(DISTINCT CASE WHEN is_petsmart_partner = TRUE THEN destination_state END)
     format_preset: humanize
 
   - name: total_partners

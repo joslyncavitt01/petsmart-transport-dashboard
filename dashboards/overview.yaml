@@ -86,6 +86,22 @@ rows:
           hide_time_range: true
     height: 140px
 
+  # ── Additional reach note ────────────────────────────────────────────────────
+  - items:
+      - width: 12
+        markdown:
+          content: >
+            > **Additional geographic reach:** APA!'s transport program reached
+            **15 states** in total during the grant period — including NE, VA,
+            PA, and IN — through partners beyond the 22-organization approved
+            list. All transports met the grant purpose of moving pets to
+            communities where adoption demand exceeds supply. The 9-state figure
+            above reflects approved partners only.
+          alignment:
+            horizontal: left
+            vertical: middle
+    height: 56px
+
   # ── Monthly volume ──────────────────────────────────────────────────────────
   - items:
       - width: 12
