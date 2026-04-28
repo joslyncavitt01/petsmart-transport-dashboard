@@ -145,10 +145,6 @@ rows:
             horizontal: left
             vertical: middle
     height: 48px
-          alignment:
-            horizontal: left
-            vertical: middle
-    height: 56px
 
   # ── Monthly volume ──────────────────────────────────────────────────────────
   - items:
