@@ -73,8 +73,7 @@ rows:
         kpi_grid:
           metrics_view: transport_out
           measures:
-            - total_partners
-            - petsmart_partner_count
+            - partners_active
           sparkline: none
           hide_time_range: true
       - width: 4
@@ -91,12 +90,12 @@ rows:
       - width: 12
         markdown:
           content: >
-            > **Additional geographic reach:** APA!'s transport program reached
-            **15 states** in total during the grant period — including NE, VA,
-            PA, and IN — through partners beyond the 22-organization approved
-            list. All transports met the grant purpose of moving pets to
-            communities where adoption demand exceeds supply. The 9-state figure
-            above reflects approved partners only.
+            > **Additional program reach:** Beyond the 22 approved partners above,
+            APA!'s transport program also moved animals to additional rescue
+            organizations during the grant period, reaching **15 states total**
+            (CO, ID, IL, IN, MN, MO, NE, NY, PA, TX, UT, VA, WA, WI, WY). All
+            transports meet the grant purpose of moving pets to communities where
+            adoption demand exceeds supply.
           alignment:
             horizontal: left
             vertical: middle
@@ -106,7 +105,7 @@ rows:
   - items:
       - width: 12
         markdown:
-          content: "## Monthly Transport Volume"
+          content: "## Monthly Transport Volume — Approved Partners"
           alignment:
             horizontal: left
             vertical: middle
@@ -154,29 +153,17 @@ rows:
   - items:
       - width: 12
         markdown:
-          content: "## PetSmart-Approved Destination Partners"
+          content: "## Animals Received by Approved Partner"
           alignment:
             horizontal: left
             vertical: middle
     height: 36px
 
   - items:
-      - width: 12
-        markdown:
-          content: >
-            Animals transported to the 22 destination partners listed in the
-            approved grant application.
-          alignment:
-            horizontal: left
-            vertical: middle
-    height: 24px
-
-  - items:
       - width: 6
         leaderboard:
           metrics_view: transport_out
           title: Animals Received by Partner
-          dimension_filters: is_petsmart_partner = TRUE
           dimensions:
             - destination_partner
           measures:
@@ -186,7 +173,6 @@ rows:
         bar_chart:
           metrics_view: transport_out
           title: By State
-          dimension_filters: is_petsmart_partner = TRUE
           color: "#D85928"
           x:
             field: destination_state
@@ -199,8 +185,7 @@ rows:
       - width: 3
         donut_chart:
           metrics_view: transport_out
-          title: Species Mix — PetSmart Partners
-          dimension_filters: is_petsmart_partner = TRUE
+          title: Species Mix
           innerRadius: 50
           color:
             field: species
@@ -213,31 +198,6 @@ rows:
           vl_config: |
             {"range": {"category": ["#D85928", "#A2C139"]}}
     height: 380px
-
-  # ── Monthly trend — PetSmart partners ───────────────────────────────────────
-  - items:
-      - width: 12
-        stacked_bar:
-          metrics_view: transport_out
-          title: Monthly Transports to PetSmart-Approved Partners
-          dimension_filters: is_petsmart_partner = TRUE
-          color:
-            field: species
-            type: nominal
-            colorMapping:
-              - value: Dog
-                color: "#D85928"
-              - value: Cat
-                color: "#A2C139"
-          x:
-            field: transport_date
-            type: temporal
-            limit: 13
-          y:
-            field: total_transported
-            type: quantitative
-            zeroBasedOrigin: true
-    height: 240px
 
   # ── Source Shelters ──────────────────────────────────────────────────────────
   - items:
