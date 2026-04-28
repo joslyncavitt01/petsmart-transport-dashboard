@@ -18,7 +18,10 @@ sql: |
 
   UNION ALL
 
-  SELECT TIMESTAMP(month_date) AS month, 'Grant Goal (1,000)' AS series, 1000.0 AS value
+  SELECT
+    TIMESTAMP(month_date) AS month,
+    'On-Pace Goal (1,000)' AS series,
+    LEAST(ROUND(1000.0 * (DATE_DIFF(month_date, DATE '2025-04-01', MONTH) + 1) / 12), 1000.0) AS value
   FROM UNNEST(GENERATE_DATE_ARRAY('2025-04-01', '2026-04-01', INTERVAL 1 MONTH)) AS month_date
 
   ORDER BY month, series

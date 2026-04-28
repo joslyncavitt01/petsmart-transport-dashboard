@@ -113,7 +113,7 @@ rows:
             colorMapping:
               - value: Actual
                 color: "#D85928"
-              - value: "Grant Goal (1,000)"
+              - value: "On-Pace Goal (1,000)"
                 color: "#A2C139"
           x:
             field: month
