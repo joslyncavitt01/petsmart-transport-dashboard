@@ -1,0 +1,29 @@
+type: metrics_view
+display_name: "Actual vs. Projected by Partner"
+model: partner_vs_projected
+timeseries: ~
+
+dimensions:
+  - column: partner_name
+    display_name: Partner
+
+measures:
+  - name: projected
+    display_name: "Projected"
+    expression: MAX(projected)
+    format_preset: humanize
+
+  - name: actual
+    display_name: "Actual"
+    expression: MAX(actual)
+    format_preset: humanize
+
+  - name: variance
+    display_name: "+/−"
+    expression: MAX(actual) - MAX(projected)
+    format_preset: humanize
+
+  - name: pct_of_projected
+    display_name: "% of Projected"
+    expression: ROUND(MAX(actual) * 100.0 / MAX(projected), 0)
+    format_preset: humanize

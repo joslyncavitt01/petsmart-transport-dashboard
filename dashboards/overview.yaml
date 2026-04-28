@@ -320,61 +320,30 @@ rows:
             {"range": {"category": ["#D85928", "#A2C139"]}}
     height: 380px
 
-  # ── Age breakdown ────────────────────────────────────────────────────────────
+  # ── Actual vs. projected ─────────────────────────────────────────────────────
   - items:
       - width: 12
         markdown:
-          content: "## Animal Profile"
+          content: "## Actual vs. Projected by Approved Partner"
           alignment:
             horizontal: left
             vertical: middle
     height: 36px
 
   - items:
-      - width: 6
-        bar_chart:
-          metrics_view: transport_out
-          title: Transported Animals by Age Group
-          color:
-            field: species
-            type: nominal
-            colorMapping:
-              - value: Dog
-                color: "#D85928"
-              - value: Cat
-                color: "#A2C139"
-          x:
-            field: age_group
-            type: nominal
-            sort:
-              - Puppy/Kitten
-              - "Young (6mo–2yr)"
-              - "Adult (2–7yr)"
-              - "Senior (7yr+)"
-          y:
-            field: total_transported
-            type: quantitative
-      - width: 6
-        bar_chart:
-          metrics_view: transport_out
-          title: Transports by Day of Week
-          color: "#D85928"
-          x:
-            field: day_of_week
-            type: nominal
-            sort:
-              - Sunday
-              - Monday
-              - Tuesday
-              - Wednesday
-              - Thursday
-              - Friday
-              - Saturday
-            limit: 7
-          y:
-            field: total_transported
-            type: quantitative
-    height: 300px
+      - width: 12
+        leaderboard:
+          metrics_view: partner_vs_projected
+          title: "Projected (from application) vs. Actual animals received"
+          dimensions:
+            - partner_name
+          measures:
+            - projected
+            - actual
+            - variance
+            - pct_of_projected
+          num_rows: 22
+    height: 500px
 
   # ── Footer ───────────────────────────────────────────────────────────────────
   - items:
