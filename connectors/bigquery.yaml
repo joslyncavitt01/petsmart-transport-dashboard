@@ -1,0 +1,3 @@
+type: connector
+driver: bigquery
+project_id: apa-data-410213

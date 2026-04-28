@@ -1,0 +1,50 @@
+type: source
+connector: bigquery
+sql: |
+  SELECT
+    DATE(o.outcomeDate) AS transport_date,
+    FORMAT_DATE('%A', DATE(o.outcomeDate)) AS day_of_week,
+    EXTRACT(DAYOFWEEK FROM DATE(o.outcomeDate)) AS dow_num,
+    a.species,
+    CASE
+      WHEN a.age < 6   THEN 'Puppy/Kitten'
+      WHEN a.age < 24  THEN 'Young (6mo–2yr)'
+      WHEN a.age < 84  THEN 'Adult (2–7yr)'
+      ELSE                  'Senior (7yr+)'
+    END AS age_group,
+    p.partnerName   AS destination_partner,
+    p.city          AS destination_city,
+    p.state         AS destination_state,
+    CASE p.partnerName
+      WHEN 'ALIVE Rescue'                           THEN TRUE
+      WHEN 'Animal Friends Alliance'                THEN TRUE
+      WHEN 'Black Dog Animal Rescue'                THEN TRUE
+      WHEN 'Boise Bully Breed Rescue'               THEN TRUE
+      WHEN 'Bounce Animal Rescue'                   THEN TRUE
+      WHEN 'Buddy''s Second Chance Rescue'          THEN TRUE
+      WHEN 'Community Animal Rescue Effort'         THEN TRUE
+      WHEN 'Community Animal Welfare Society (CAWS)' THEN TRUE
+      WHEN 'Fetch Wisconsin Rescue'                 THEN TRUE
+      WHEN 'Fetching Tails Foundation'              THEN TRUE
+      WHEN 'Freedom Bound Hounds'                   THEN TRUE
+      WHEN 'KC Pet Project'                         THEN TRUE
+      WHEN 'Madison Cat Project'                    THEN TRUE
+      WHEN 'Mile High Canine Rescue'                THEN TRUE
+      WHEN 'Mile High Labrador Retriever Mission'   THEN TRUE
+      WHEN 'Mutts of the Midway'                    THEN TRUE
+      WHEN 'One Tail at a Time'                     THEN TRUE
+      WHEN 'One Tail at a Time PDX'                 THEN TRUE
+      WHEN 'Paws and Claws Humane Society'          THEN TRUE
+      WHEN 'Red Desert Humane Society'              THEN TRUE
+      WHEN 'SpokAnimal C.A.R.E.'                    THEN TRUE
+      WHEN 'TAILS Humane Society'                   THEN TRUE
+      ELSE FALSE
+    END AS is_petsmart_partner,
+    1 AS animals_count
+  FROM `apa-data-410213.shelterluv.Outcomes` o
+  JOIN `apa-data-410213.shelterluv.Animals`  a ON o.animalInternalID = a.animalInternalID
+  JOIN `apa-data-410213.shelterluv.Partners` p ON o.partnerInternalID = p.partnerInternalID
+  WHERE o.outcomeType    = 'Outcome.Transfer'
+    AND o.outcomeSubType = 'Transport Partner Out'
+    AND DATE(o.outcomeDate) >= '2025-04-15'
+    AND DATE(o.outcomeDate) <= '2026-04-01'

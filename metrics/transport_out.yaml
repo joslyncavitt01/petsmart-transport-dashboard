@@ -1,0 +1,72 @@
+type: metrics_view
+display_name: "Transport Out"
+model: transport_out
+timeseries: transport_date
+smallest_time_grain: month
+
+dimensions:
+  - column: species
+    display_name: Species
+  - column: age_group
+    display_name: Age Group
+  - column: destination_partner
+    display_name: Destination Partner
+  - column: destination_city
+    display_name: Destination City
+  - column: destination_state
+    display_name: Destination State
+  - column: day_of_week
+    display_name: Day of Week
+  - column: is_petsmart_partner
+    display_name: PetSmart-Approved Partner
+
+measures:
+  - name: total_transported
+    display_name: "Animals Transported"
+    expression: COUNT(*)
+    format_preset: humanize
+
+  - name: dogs_transported
+    display_name: "Dogs"
+    expression: COUNTIF(species = 'Dog')
+    format_preset: humanize
+
+  - name: cats_transported
+    display_name: "Cats"
+    expression: COUNTIF(species = 'Cat')
+    format_preset: humanize
+
+  - name: pct_of_goal
+    display_name: "% of 1,000 Goal"
+    expression: ROUND(COUNT(*) / 1000.0, 3)
+    format_preset: percentage
+
+  - name: petsmart_partner_count
+    display_name: "PetSmart Partners Active"
+    expression: COUNT(DISTINCT CASE WHEN is_petsmart_partner THEN destination_partner END)
+    format_preset: humanize
+
+  - name: states_reached
+    display_name: "States Reached"
+    expression: COUNT(DISTINCT destination_state)
+    format_preset: humanize
+
+  - name: total_partners
+    display_name: "Destination Partners"
+    expression: COUNT(DISTINCT destination_partner)
+    format_preset: humanize
+
+explore:
+  display_name: "Transport Out"
+  time_ranges:
+    - P3M
+    - P6M
+    - P12M
+    - inf
+  defaults:
+    time_range: inf
+    dimensions: "*"
+    measures:
+      - total_transported
+      - dogs_transported
+      - cats_transported

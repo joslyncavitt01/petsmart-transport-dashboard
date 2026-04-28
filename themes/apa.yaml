@@ -1,0 +1,22 @@
+type: theme
+
+light:
+  primary: "#D85928"
+  secondary: "#A2C139"
+
+  background: "#FFFFFF"
+  surface: "#FFFFFF"
+  card: "#FFFFFF"
+
+  color-qualitative-1: "#D85928"   # APA orange
+  color-qualitative-2: "#A2C139"   # APA green
+  color-qualitative-3: "#8B3512"   # dark burnt orange
+  color-qualitative-4: "#D4E87A"   # yellow-green
+  color-qualitative-5: "#FF6B3D"   # bright orange
+  color-qualitative-6: "#4A6B1A"   # deep forest green
+  color-qualitative-7: "#F2A96E"   # pale orange
+  color-qualitative-8: "#5C7A22"   # forest green
+  color-qualitative-9: "#C4491A"   # deep orange
+  color-qualitative-10: "#BCD45E"  # light green
+  color-qualitative-11: "#E8843D"  # light orange
+  color-qualitative-12: "#7A9430"  # dark green

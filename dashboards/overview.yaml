@@ -1,0 +1,365 @@
+type: canvas
+display_name: "PetSmart Charities — Transport Grant Final Report"
+theme: apa
+max_width: 1400
+
+defaults:
+  time_range: inf
+  comparison_mode: none
+
+rows:
+  # ── Header ──────────────────────────────────────────────────────────────────
+  - items:
+      - width: 4
+        image:
+          url: https://raw.githubusercontent.com/joslyncavitt01/apa-assets/master/petsmart_charities_logo.png
+          alignment:
+            horizontal: left
+            vertical: middle
+      - width: 8
+        image:
+          url: https://raw.githubusercontent.com/joslyncavitt01/apa-assets/master/apa_logo.svg
+          alignment:
+            horizontal: right
+            vertical: middle
+    height: 100px
+
+  # ── Grant title ─────────────────────────────────────────────────────────────
+  - items:
+      - width: 12
+        markdown:
+          content: >
+            ## PetSmart Charities — National Transport Program
+
+            Application 2025-9945 · Grant Amount: **$40,000** · Grant Period:
+            Apr 15, 2025 – Apr 1, 2026 · **Final Report due May 1, 2026**
+          alignment:
+            horizontal: left
+            vertical: middle
+    height: 64px
+
+  # ── Divider label ───────────────────────────────────────────────────────────
+  - items:
+      - width: 12
+        markdown:
+          content: "#### Grant Goal: Transport a Minimum of 1,000 Animals"
+          alignment:
+            horizontal: left
+            vertical: middle
+    height: 28px
+
+  # ── Primary KPIs ────────────────────────────────────────────────────────────
+  - items:
+      - width: 12
+        kpi_grid:
+          metrics_view: transport_out
+          measures:
+            - total_transported
+            - dogs_transported
+            - cats_transported
+            - pct_of_goal
+    height: 140px
+
+  # ── Secondary KPIs ──────────────────────────────────────────────────────────
+  - items:
+      - width: 4
+        kpi_grid:
+          metrics_view: transport_in
+          measures:
+            - source_shelter_count
+          sparkline: none
+          hide_time_range: true
+      - width: 4
+        kpi_grid:
+          metrics_view: transport_out
+          measures:
+            - total_partners
+            - petsmart_partner_count
+          sparkline: none
+          hide_time_range: true
+      - width: 4
+        kpi_grid:
+          metrics_view: transport_out
+          measures:
+            - states_reached
+          sparkline: none
+          hide_time_range: true
+    height: 140px
+
+  # ── Monthly volume ──────────────────────────────────────────────────────────
+  - items:
+      - width: 12
+        markdown:
+          content: "## Monthly Transport Volume"
+          alignment:
+            horizontal: left
+            vertical: middle
+    height: 36px
+
+  - items:
+      - width: 8
+        stacked_bar:
+          metrics_view: transport_out
+          title: Animals Transported by Month (Dogs vs. Cats)
+          color:
+            field: species
+            type: nominal
+            colorMapping:
+              - value: Dog
+                color: "#D85928"
+              - value: Cat
+                color: "#A2C139"
+          x:
+            field: transport_date
+            type: temporal
+            limit: 13
+          y:
+            field: total_transported
+            type: quantitative
+            zeroBasedOrigin: true
+      - width: 4
+        donut_chart:
+          metrics_view: transport_out
+          title: Species Mix
+          innerRadius: 50
+          color:
+            field: species
+            type: nominal
+            limit: 2
+          measure:
+            field: total_transported
+            type: quantitative
+            showTotal: true
+          vl_config: |
+            {"range": {"category": ["#D85928", "#A2C139"]}}
+    height: 300px
+
+  # ── PetSmart-Approved Partners ───────────────────────────────────────────────
+  - items:
+      - width: 12
+        markdown:
+          content: "## PetSmart-Approved Destination Partners"
+          alignment:
+            horizontal: left
+            vertical: middle
+    height: 36px
+
+  - items:
+      - width: 12
+        markdown:
+          content: >
+            Animals transported to the 22 destination partners listed in the
+            approved grant application.
+          alignment:
+            horizontal: left
+            vertical: middle
+    height: 24px
+
+  - items:
+      - width: 6
+        leaderboard:
+          metrics_view: transport_out
+          title: Animals Received by Partner
+          dimension_filters: is_petsmart_partner = TRUE
+          dimensions:
+            - destination_partner
+          measures:
+            - total_transported
+          num_rows: 22
+      - width: 3
+        bar_chart:
+          metrics_view: transport_out
+          title: By State
+          dimension_filters: is_petsmart_partner = TRUE
+          color: "#D85928"
+          x:
+            field: destination_state
+            type: nominal
+            sort: "-y"
+            limit: 12
+          y:
+            field: total_transported
+            type: quantitative
+      - width: 3
+        donut_chart:
+          metrics_view: transport_out
+          title: Species Mix — PetSmart Partners
+          dimension_filters: is_petsmart_partner = TRUE
+          innerRadius: 50
+          color:
+            field: species
+            type: nominal
+            limit: 2
+          measure:
+            field: total_transported
+            type: quantitative
+            showTotal: true
+          vl_config: |
+            {"range": {"category": ["#D85928", "#A2C139"]}}
+    height: 380px
+
+  # ── Monthly trend — PetSmart partners ───────────────────────────────────────
+  - items:
+      - width: 12
+        stacked_bar:
+          metrics_view: transport_out
+          title: Monthly Transports to PetSmart-Approved Partners
+          dimension_filters: is_petsmart_partner = TRUE
+          color:
+            field: species
+            type: nominal
+            colorMapping:
+              - value: Dog
+                color: "#D85928"
+              - value: Cat
+                color: "#A2C139"
+          x:
+            field: transport_date
+            type: temporal
+            limit: 13
+          y:
+            field: total_transported
+            type: quantitative
+            zeroBasedOrigin: true
+    height: 240px
+
+  # ── Source Shelters ──────────────────────────────────────────────────────────
+  - items:
+      - width: 12
+        markdown:
+          content: "## Texas Source Shelters"
+          alignment:
+            horizontal: left
+            vertical: middle
+    height: 36px
+
+  - items:
+      - width: 12
+        markdown:
+          content: >
+            Under-resourced Texas shelters APA! pulled from during the grant
+            period. APA! covers all transport prep costs — veterinary care,
+            health certificates, and transport — at no charge to source
+            shelters.
+          alignment:
+            horizontal: left
+            vertical: middle
+    height: 32px
+
+  - items:
+      - width: 5
+        leaderboard:
+          metrics_view: transport_in
+          title: Animals Received by Shelter
+          dimensions:
+            - source_shelter
+          measures:
+            - animals_received
+          num_rows: 20
+      - width: 4
+        stacked_bar:
+          metrics_view: transport_in
+          title: Monthly Intake from Source Shelters
+          color:
+            field: species
+            type: nominal
+            colorMapping:
+              - value: Dog
+                color: "#D85928"
+              - value: Cat
+                color: "#A2C139"
+          x:
+            field: intake_date
+            type: temporal
+            limit: 13
+          y:
+            field: animals_received
+            type: quantitative
+            zeroBasedOrigin: true
+      - width: 3
+        donut_chart:
+          metrics_view: transport_in
+          title: Species Mix — Source
+          innerRadius: 50
+          color:
+            field: species
+            type: nominal
+            limit: 2
+          measure:
+            field: animals_received
+            type: quantitative
+            showTotal: true
+          vl_config: |
+            {"range": {"category": ["#D85928", "#A2C139"]}}
+    height: 380px
+
+  # ── Age breakdown ────────────────────────────────────────────────────────────
+  - items:
+      - width: 12
+        markdown:
+          content: "## Animal Profile"
+          alignment:
+            horizontal: left
+            vertical: middle
+    height: 36px
+
+  - items:
+      - width: 6
+        bar_chart:
+          metrics_view: transport_out
+          title: Transported Animals by Age Group
+          color:
+            field: species
+            type: nominal
+            colorMapping:
+              - value: Dog
+                color: "#D85928"
+              - value: Cat
+                color: "#A2C139"
+          x:
+            field: age_group
+            type: nominal
+            sort:
+              - Puppy/Kitten
+              - "Young (6mo–2yr)"
+              - "Adult (2–7yr)"
+              - "Senior (7yr+)"
+          y:
+            field: total_transported
+            type: quantitative
+      - width: 6
+        bar_chart:
+          metrics_view: transport_out
+          title: Transports by Day of Week
+          color: "#D85928"
+          x:
+            field: day_of_week
+            type: nominal
+            sort:
+              - Sunday
+              - Monday
+              - Tuesday
+              - Wednesday
+              - Thursday
+              - Friday
+              - Saturday
+            limit: 7
+          y:
+            field: total_transported
+            type: quantitative
+    height: 300px
+
+  # ── Footer ───────────────────────────────────────────────────────────────────
+  - items:
+      - width: 12
+        markdown:
+          content: >
+            *Source: Austin ShelterLuv (apa-data-410213) · Outcome type:
+            "Transport Partner Out" · Intake type: "Transport Held at APATH" ·
+            Grant period: Apr 15, 2025 – Apr 1, 2026 · PetSmart partner list per
+            approved grant application 2025-9945 · Prepared by Joslyn Cavitt,
+            Austin Pets Alive!*
+          alignment:
+            horizontal: left
+            vertical: middle
+    height: 36px

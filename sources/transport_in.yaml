@@ -1,0 +1,16 @@
+type: source
+connector: bigquery
+sql: |
+  SELECT
+    DATE(i.intakeDate) AS intake_date,
+    a.species,
+    p.partnerName AS source_shelter,
+    p.city        AS source_city,
+    p.state       AS source_state,
+    1             AS animals_count
+  FROM `apa-data-410213.shelterluv.Intakes`  i
+  JOIN `apa-data-410213.shelterluv.Animals`  a ON i.animalInternalID  = a.animalInternalID
+  JOIN `apa-data-410213.shelterluv.Partners` p ON i.partnerInternalID = p.partnerInternalID
+  WHERE i.intakeSubType = 'Transport Held at APATH'
+    AND DATE(i.intakeDate) >= '2025-04-15'
+    AND DATE(i.intakeDate) <= '2026-04-01'

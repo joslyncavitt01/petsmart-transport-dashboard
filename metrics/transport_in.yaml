@@ -1,0 +1,44 @@
+type: metrics_view
+display_name: "Source Shelters"
+model: transport_in
+timeseries: intake_date
+smallest_time_grain: month
+
+dimensions:
+  - column: species
+    display_name: Species
+  - column: source_shelter
+    display_name: Source Shelter
+  - column: source_city
+    display_name: City
+  - column: source_state
+    display_name: State
+
+measures:
+  - name: animals_received
+    display_name: "Animals Received"
+    expression: COUNT(*)
+    format_preset: humanize
+
+  - name: dogs_received
+    display_name: "Dogs"
+    expression: COUNTIF(species = 'Dog')
+    format_preset: humanize
+
+  - name: cats_received
+    display_name: "Cats"
+    expression: COUNTIF(species = 'Cat')
+    format_preset: humanize
+
+  - name: source_shelter_count
+    display_name: "Source Shelters"
+    expression: COUNT(DISTINCT source_shelter)
+    format_preset: humanize
+
+explore:
+  display_name: "Source Shelters"
+  defaults:
+    time_range: inf
+    dimensions: "*"
+    measures:
+      - animals_received

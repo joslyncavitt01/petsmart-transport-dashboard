@@ -1,0 +1,3 @@
+compiler: rillv1
+display_name: "PetSmart Charities — Transport Grant 2025-2026"
+olap_connector: duckdb
