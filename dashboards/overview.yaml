@@ -202,7 +202,7 @@ rows:
           measures:
             - total_transported
           num_rows: 64
-      - width: 3
+      - width: 6
         bar_chart:
           metrics_view: transport_out
           title: By State
@@ -215,21 +215,6 @@ rows:
           y:
             field: total_transported
             type: quantitative
-      - width: 3
-        donut_chart:
-          metrics_view: transport_out
-          title: Species Mix
-          innerRadius: 50
-          color:
-            field: species
-            type: nominal
-            limit: 2
-          measure:
-            field: total_transported
-            type: quantitative
-            showTotal: true
-          vl_config: |
-            {"range": {"category": ["#D85928", "#A2C139"]}}
     height: 380px
 
   # ── Source Shelters ──────────────────────────────────────────────────────────
@@ -265,7 +250,7 @@ rows:
           measures:
             - animals_received
           num_rows: 20
-      - width: 4
+      - width: 7
         stacked_bar:
           metrics_view: transport_in
           title: Monthly Intake from Source Shelters
@@ -285,21 +270,6 @@ rows:
             field: animals_received
             type: quantitative
             zeroBasedOrigin: true
-      - width: 3
-        donut_chart:
-          metrics_view: transport_in
-          title: Species Mix — Source
-          innerRadius: 50
-          color:
-            field: species
-            type: nominal
-            limit: 2
-          measure:
-            field: animals_received
-            type: quantitative
-            showTotal: true
-          vl_config: |
-            {"range": {"category": ["#D85928", "#A2C139"]}}
     height: 380px
 
   # ── Actual vs. projected ─────────────────────────────────────────────────────
