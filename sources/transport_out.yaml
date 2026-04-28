@@ -15,6 +15,7 @@ sql: |
     p.partnerName   AS destination_partner,
     p.city          AS destination_city,
     COALESCE(p.state, CASE p.partnerName
+      -- PetSmart-approved partners
       WHEN 'ALIVE Rescue'                            THEN 'IL'
       WHEN 'Animal Friends Alliance'                 THEN 'CO'
       WHEN 'Black Dog Animal Rescue'                 THEN 'WY'
@@ -37,6 +38,27 @@ sql: |
       WHEN 'Red Desert Humane Society'               THEN 'WY'
       WHEN 'SpokAnimal C.A.R.E.'                     THEN 'WA'
       WHEN 'TAILS Humane Society'                    THEN 'IL'
+      -- Other known partners with NULL state in ShelterLuv
+      WHEN 'Nebraska Humane Society'                          THEN 'NE'
+      WHEN 'Best Friends Animal Society - Salt Lake City, UT' THEN 'UT'
+      WHEN 'Best Friends Animal Society - SoHo'               THEN 'NY'
+      WHEN 'Best Friends Animal Society - Sanctuary'          THEN 'UT'
+      WHEN 'Rocky Mountain Puppy Rescue'                      THEN 'CO'
+      WHEN 'Richmond SPCA'                                    THEN 'VA'
+      WHEN 'Brandywine Valley SPCA'                           THEN 'PA'
+      WHEN 'Humane Society of Jefferson County, WI'           THEN 'WI'
+      WHEN 'The Washington County Humane Society Inc., WI'    THEN 'WI'
+      WHEN 'PAWS Chicago'                                     THEN 'IL'
+      WHEN 'Fredericksburg SPCA'                              THEN 'VA'
+      WHEN 'Elmbrook Humane Society'                          THEN 'WI'
+      WHEN 'Chicago Rescue Authority'                         THEN 'IL'
+      WHEN 'SFC Virginia'                                     THEN 'VA'
+      WHEN 'Norfolk SPCA'                                     THEN 'VA'
+      WHEN 'Providence Animal Center'                         THEN 'PA'
+      WHEN 'Humane Animal Welfare Society of Waukesha County' THEN 'WI'
+      WHEN 'Humane Society of Indianapolis'                   THEN 'IN'
+      WHEN 'Allie & Pals Rescue'                              THEN 'NY'
+      WHEN 'Arrow\'s Heart Animal Rescue'                     THEN 'MN'
     END) AS destination_state,
     CASE p.partnerName
       WHEN 'ALIVE Rescue'                           THEN TRUE
