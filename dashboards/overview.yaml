@@ -141,9 +141,9 @@ rows:
         markdown:
           content: >
             > All metrics above reflect APA!'s full National Transport Program
-            during the grant period. Of the **22 approved destination partners**
-            in the grant application, **19 received animals**. The partner
-            breakdown below is scoped to those approved organizations.
+            during the grant period. Animals were transported to **64 destination
+            partners** across 15 states, including 19 of the 22 organizations
+            listed in the approved grant application.
           alignment:
             horizontal: left
             vertical: middle
@@ -153,7 +153,7 @@ rows:
   - items:
       - width: 12
         markdown:
-          content: "## Monthly Transport Volume — Approved Partners"
+          content: "## Monthly Transport Volume"
           alignment:
             horizontal: left
             vertical: middle
@@ -201,7 +201,7 @@ rows:
   - items:
       - width: 12
         markdown:
-          content: "## Animals Received by Approved Partner"
+          content: "## Animals Received by Destination Partner"
           alignment:
             horizontal: left
             vertical: middle
@@ -211,18 +211,16 @@ rows:
       - width: 6
         leaderboard:
           metrics_view: transport_out
-          title: Animals Received by Approved Partner
-          dimension_filters: is_petsmart_partner = TRUE
+          title: Animals Received by Destination Partner
           dimensions:
             - destination_partner
           measures:
             - total_transported
-          num_rows: 22
+          num_rows: 64
       - width: 3
         bar_chart:
           metrics_view: transport_out
           title: By State
-          dimension_filters: is_petsmart_partner = TRUE
           color: "#D85928"
           x:
             field: destination_state
@@ -236,7 +234,6 @@ rows:
         donut_chart:
           metrics_view: transport_out
           title: Species Mix
-          dimension_filters: is_petsmart_partner = TRUE
           innerRadius: 50
           color:
             field: species
