@@ -160,7 +160,7 @@ rows:
     height: 36px
 
   - items:
-      - width: 8
+      - width: 12
         stacked_bar:
           metrics_view: transport_out
           title: Animals Transported by Month (Dogs vs. Cats)
@@ -180,21 +180,6 @@ rows:
             field: total_transported
             type: quantitative
             zeroBasedOrigin: true
-      - width: 4
-        donut_chart:
-          metrics_view: transport_out
-          title: Species Mix
-          innerRadius: 50
-          color:
-            field: species
-            type: nominal
-            limit: 2
-          measure:
-            field: total_transported
-            type: quantitative
-            showTotal: true
-          vl_config: |
-            {"range": {"category": ["#D85928", "#A2C139"]}}
     height: 300px
 
   # ── PetSmart-Approved Partners ───────────────────────────────────────────────
