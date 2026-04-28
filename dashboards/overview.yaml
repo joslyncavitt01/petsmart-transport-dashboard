@@ -92,6 +92,46 @@ rows:
           hide_time_range: true
     height: 140px
 
+  # ── Progress toward goal ────────────────────────────────────────────────────
+  - items:
+      - width: 12
+        markdown:
+          content: "## Progress Toward Grant Goal"
+          alignment:
+            horizontal: left
+            vertical: middle
+    height: 36px
+
+  - items:
+      - width: 12
+        line_chart:
+          metrics_view: progress
+          title: "Cumulative Animals Transported vs. Grant Goal (1,000)"
+          color:
+            field: series
+            type: nominal
+            colorMapping:
+              - value: Actual
+                color: "#D85928"
+              - value: "Grant Goal (1,000)"
+                color: "#A2C139"
+          x:
+            field: month
+            type: temporal
+          y:
+            field: value
+            type: quantitative
+            zeroBasedOrigin: true
+          vl_config: >
+            {
+              "view": {"stroke": null},
+              "axis": {"grid": false, "ticks": false, "domain": false, "labelFontSize": 11, "labelOpacity": 0.6},
+              "axisY": {"grid": true, "gridOpacity": 0.08, "tickCount": 5},
+              "axisX": {"labelAngle": -30, "format": "%b %Y"},
+              "line": {"strokeWidth": 2.5}
+            }
+    height: 320px
+
   # ── Approved partners note ───────────────────────────────────────────────────
   - items:
       - width: 12

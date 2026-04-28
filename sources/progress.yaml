@@ -1,0 +1,24 @@
+type: source
+connector: bigquery
+sql: |
+  WITH monthly AS (
+    SELECT
+      TIMESTAMP(DATE_TRUNC(DATE(o.outcomeDate), MONTH)) AS month,
+      COUNT(*) AS monthly_count
+    FROM `apa-data-410213.shelterluv.Outcomes` o
+    WHERE o.outcomeType    = 'Outcome.Transfer'
+      AND o.outcomeSubType = 'Transport Partner Out'
+      AND DATE(o.outcomeDate) >= '2025-04-15'
+      AND DATE(o.outcomeDate) <= '2026-04-01'
+    GROUP BY 1
+  )
+  SELECT month, 'Actual' AS series,
+    CAST(SUM(monthly_count) OVER (ORDER BY month) AS FLOAT64) AS value
+  FROM monthly
+
+  UNION ALL
+
+  SELECT TIMESTAMP(month_date) AS month, 'Grant Goal (1,000)' AS series, 1000.0 AS value
+  FROM UNNEST(GENERATE_DATE_ARRAY('2025-04-01', '2026-04-01', INTERVAL 1 MONTH)) AS month_date
+
+  ORDER BY month, series

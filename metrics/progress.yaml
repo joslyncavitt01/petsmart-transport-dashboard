@@ -1,0 +1,15 @@
+type: metrics_view
+display_name: "Progress vs. Goal"
+model: progress
+timeseries: month
+smallest_time_grain: month
+
+dimensions:
+  - column: series
+    display_name: Series
+
+measures:
+  - name: value
+    display_name: "Animals Transported (Cumulative)"
+    expression: MAX(value)
+    format_preset: humanize
