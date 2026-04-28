@@ -1,0 +1,16 @@
+type: metrics_view
+display_name: "Destination Partners — Projected vs. Actual"
+model: partner_comparison_long
+timeseries: ~
+
+dimensions:
+  - column: partner_name
+    display_name: Partner
+  - column: series
+    display_name: Series
+
+measures:
+  - name: value
+    display_name: "Animals"
+    expression: MAX(value)
+    format_preset: humanize

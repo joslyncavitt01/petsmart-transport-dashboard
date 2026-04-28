@@ -1,0 +1,50 @@
+type: source
+connector: bigquery
+sql: |
+  WITH projected AS (
+    SELECT display_name, bq_name, projected
+    FROM UNNEST(ARRAY<STRUCT<display_name STRING, bq_name STRING, projected INT64>>[
+      ('Bryan Animal Center',              'Bryan Animal Center',                          225),
+      ('Cleburne Animal Services',         'Cleburne Animal Services',                     195),
+      ('Comanche Texas Animal Control',    'Comanche Animal Shelter',                      150),
+      ('Del Rio Animal Shelter',           'Del Rio Animal Control',                       250),
+      ('Devine Animal Care & Control',     'Devine Animal Control',                        225),
+      ('Dilley Animal Control',            'City of Dilley',                               150),
+      ('Dublin Animal Shelter',            'City of Dublin Texas Animal Shelter',          150),
+      ('Giddings Animal Shelter',          'GIDDINGS ANIMAL SHELTER',                       50),
+      ('Hondo Animal Care Services',       'City of Hondo Animal Shelter',                 170),
+      ('Kurth Memorial - Lufkin',          'City of Lufkin Animal Services',               200),
+      ('Leon Valley Animal Control',       'City of Leon Valley',                          100),
+      ('Lyford Animal Shelter',            'Lyford Animal Shelter',                        105),
+      ('Pearsall Animal Control',          'Pearsall Animal Control',                       40),
+      ('Raymondville Animal Shelter',      'Raymondville Animal Shelter',                   35),
+      ('Sabinal Animal Shelter',           'City of Sabinal Animal Shelter',                40),
+      ('Sam B. Coffey Animal Shelter',     'Sam Coffey Animal Rescue Friends',              70),
+      ('San Diego Texas Animal Control',   'San Diego Animal Control',                     150),
+      ('Sandy Oaks Animal Control',        'Sandy Oaks Dogs',                               70),
+      ('Uvalde Animal Shelter',            'Humane Society of Uvalde',                     125)
+    ])
+  ),
+  actuals AS (
+    SELECT p.partnerName AS bq_name, COUNT(*) AS actual
+    FROM `apa-data-410213.shelterluv.Intakes` i
+    JOIN `apa-data-410213.shelterluv.Partners` p ON i.partnerInternalID = p.partnerInternalID
+    WHERE i.intakeSubType = 'Transport Held at APATH'
+      AND DATE(i.intakeDate) >= '2025-04-15'
+      AND DATE(i.intakeDate) <= '2026-04-01'
+    GROUP BY 1
+  ),
+  comparison AS (
+    SELECT
+      pr.display_name AS shelter_name,
+      pr.projected,
+      COALESCE(a.actual, 0) AS actual
+    FROM projected pr
+    LEFT JOIN actuals a ON pr.bq_name = a.bq_name
+  )
+  SELECT shelter_name, 'Projected' AS series, CAST(projected AS FLOAT64) AS value
+  FROM comparison
+  UNION ALL
+  SELECT shelter_name, 'Actual' AS series, CAST(actual AS FLOAT64) AS value
+  FROM comparison
+  ORDER BY shelter_name, series

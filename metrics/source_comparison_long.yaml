@@ -1,0 +1,16 @@
+type: metrics_view
+display_name: "Source Shelters — Projected vs. Actual"
+model: source_comparison_long
+timeseries: ~
+
+dimensions:
+  - column: shelter_name
+    display_name: Shelter
+  - column: series
+    display_name: Series
+
+measures:
+  - name: value
+    display_name: "Animals"
+    expression: MAX(value)
+    format_preset: humanize

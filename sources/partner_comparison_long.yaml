@@ -1,0 +1,54 @@
+type: source
+connector: bigquery
+sql: |
+  WITH projected AS (
+    SELECT partner_name, projected
+    FROM UNNEST(ARRAY<STRUCT<partner_name STRING, projected INT64>>[
+      ('ALIVE Rescue',                            50),
+      ('Animal Friends Alliance',                 80),
+      ('Black Dog Animal Rescue',                120),
+      ('Boise Bully Breed Rescue',                40),
+      ('Bounce Animal Rescue',                    50),
+      ('Buddy\'s Second Chance Rescue',          120),
+      ('Community Animal Rescue Effort',          40),
+      ('Community Animal Welfare Society (CAWS)', 125),
+      ('Fetch Wisconsin Rescue',                 120),
+      ('Fetching Tails Foundation',               40),
+      ('Freedom Bound Hounds',                   100),
+      ('KC Pet Project',                         470),
+      ('Madison Cat Project',                    100),
+      ('Mile High Canine Rescue',                 60),
+      ('Mile High Labrador Retriever Mission',    50),
+      ('Mutts of the Midway',                     20),
+      ('One Tail at a Time',                     300),
+      ('One Tail at a Time PDX',                 100),
+      ('Paws and Claws Humane Society',           100),
+      ('Red Desert Humane Society',               35),
+      ('SpokAnimal C.A.R.E.',                    340),
+      ('TAILS Humane Society',                    40)
+    ])
+  ),
+  actuals AS (
+    SELECT p.partnerName AS partner_name, COUNT(*) AS actual
+    FROM `apa-data-410213.shelterluv.Outcomes` o
+    JOIN `apa-data-410213.shelterluv.Partners` p ON o.partnerInternalID = p.partnerInternalID
+    WHERE o.outcomeType    = 'Outcome.Transfer'
+      AND o.outcomeSubType = 'Transport Partner Out'
+      AND DATE(o.outcomeDate) >= '2025-04-15'
+      AND DATE(o.outcomeDate) <= '2026-04-01'
+    GROUP BY 1
+  ),
+  comparison AS (
+    SELECT
+      pr.partner_name,
+      pr.projected,
+      COALESCE(a.actual, 0) AS actual
+    FROM projected pr
+    LEFT JOIN actuals a ON pr.partner_name = a.partner_name
+  )
+  SELECT partner_name, 'Projected' AS series, CAST(projected AS FLOAT64) AS value
+  FROM comparison
+  UNION ALL
+  SELECT partner_name, 'Actual' AS series, CAST(actual AS FLOAT64) AS value
+  FROM comparison
+  ORDER BY partner_name, series
