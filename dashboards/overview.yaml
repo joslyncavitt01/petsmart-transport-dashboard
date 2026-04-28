@@ -10,15 +10,15 @@ defaults:
 rows:
   # ── Header ──────────────────────────────────────────────────────────────────
   - items:
-      - width: 4
+      - width: 3
         image:
-          url: https://raw.githubusercontent.com/joslyncavitt01/apa-assets/master/petsmart_charities_logo.png
+          url: https://raw.githubusercontent.com/joslyncavitt01/apa-assets/master/apa_logo.svg
           alignment:
             horizontal: left
             vertical: middle
-      - width: 8
+      - width: 9
         image:
-          url: https://raw.githubusercontent.com/joslyncavitt01/apa-assets/master/apa_logo.svg
+          url: https://raw.githubusercontent.com/joslyncavitt01/apa-assets/master/petsmart_charities_logo.png
           alignment:
             horizontal: right
             vertical: middle
