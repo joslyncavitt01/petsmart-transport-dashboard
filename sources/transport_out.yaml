@@ -14,7 +14,30 @@ sql: |
     END AS age_group,
     p.partnerName   AS destination_partner,
     p.city          AS destination_city,
-    p.state         AS destination_state,
+    COALESCE(p.state, CASE p.partnerName
+      WHEN 'ALIVE Rescue'                            THEN 'IL'
+      WHEN 'Animal Friends Alliance'                 THEN 'CO'
+      WHEN 'Black Dog Animal Rescue'                 THEN 'WY'
+      WHEN 'Boise Bully Breed Rescue'                THEN 'ID'
+      WHEN 'Bounce Animal Rescue'                    THEN 'CO'
+      WHEN 'Buddy\'s Second Chance Rescue'           THEN 'NY'
+      WHEN 'Community Animal Rescue Effort'          THEN 'IL'
+      WHEN 'Community Animal Welfare Society (CAWS)' THEN 'UT'
+      WHEN 'Fetch Wisconsin Rescue'                  THEN 'WI'
+      WHEN 'Fetching Tails Foundation'               THEN 'IL'
+      WHEN 'Freedom Bound Hounds'                    THEN 'ID'
+      WHEN 'KC Pet Project'                          THEN 'MO'
+      WHEN 'Madison Cat Project'                     THEN 'WI'
+      WHEN 'Mile High Canine Rescue'                 THEN 'CO'
+      WHEN 'Mile High Labrador Retriever Mission'    THEN 'CO'
+      WHEN 'Mutts of the Midway'                     THEN 'IL'
+      WHEN 'One Tail at a Time'                      THEN 'IL'
+      WHEN 'One Tail at a Time PDX'                  THEN 'OR'
+      WHEN 'Paws and Claws Humane Society'           THEN 'MN'
+      WHEN 'Red Desert Humane Society'               THEN 'WY'
+      WHEN 'SpokAnimal C.A.R.E.'                     THEN 'WA'
+      WHEN 'TAILS Humane Society'                    THEN 'IL'
+    END) AS destination_state,
     CASE p.partnerName
       WHEN 'ALIVE Rescue'                           THEN TRUE
       WHEN 'Animal Friends Alliance'                THEN TRUE
